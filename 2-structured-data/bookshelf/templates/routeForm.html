@@ -1,0 +1,52 @@
+{#
+# Copyright 2015 Google Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#}
+
+{# [START form] #}
+{% extends "base.html" %}
+
+{% block content %}
+<h3>{{action}} location</h3>
+
+<form method="POST" enctype="multipart/form-data">
+  <div class="form-group">
+    <label for="name">Climb name</label>
+    <input type="text" name="name" id="name" value="{{route.name}}" class="form-control"/>
+  </div>
+  <div class="form-group">
+    <label for="difficulty">Dificulty</label>
+    <input type="text" name="difficulty" id="difficulty" value="{{route.difficulty}}" class="form-control"/>
+  </div>
+  <div class="form-group">
+    <label for="stars">Type</label><br>
+    <input type="radio" name="stars" id="one" value="one"> One </input><br>
+    <input type="radio" name="stars" id="two" value="two"> Two </input><br>
+    <input type="radio" name="stars" id="tree" value="tree"> Tree </input><br>
+    <input type="radio" name="stars" id="four" value="four"> Four </input><br>
+    <input type="radio" name="stars" id="five" value="five"> Five </input><br>
+  </div>
+  <div class="form-group">
+    <label for="route_image">Route image</label>
+    <input type="text" name="pic" id="pic" value="{{route.pic}}" class="form-control"/>
+  </div>
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea name="description" id="description" class="form-control">{{route.description}}</textarea>
+  </div>
+  <button type="submit" class="btn btn-success">Save</button>
+</form>
+
+{% endblock %}
+{# [END form] #}

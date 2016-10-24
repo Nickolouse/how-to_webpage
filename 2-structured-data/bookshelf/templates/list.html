@@ -18,26 +18,26 @@
 
 {% block content %}
 
-<h3>Books</h3>
+<h3>Locations</h3>
 <a href="/books/add" class="btn btn-success btn-sm">
   <i class="glyphicon glyphicon-plus"></i>
-  Add book
+  Add location
 </a>
 
-{% for book in books %}
+{% for location in locations %}
 <div class="media">
-  <a href="/books/{{book.id}}">
+  <a href="/books/{{location.id}}">
     <div class="media-left">
       <img src="http://placekitten.com/g/128/192">
     </div>
     <div class="media-body">
-      <h4>{{book.title}}</h4>
-      <p>{{book.author}}</p>
+      <h4>{{location.name}}</h4>
+      <p>{{location.longitude}}</p>
     </div>
   </a>
 </div>
 {% else %}
-<p>No books found</p>
+<p>No locations found</p>
 {% endfor %}
 
 {% if next_page_token %}

@@ -51,28 +51,44 @@ def from_datastore(entity):
 # [START list]
 def list(limit=10, cursor=None):
     ds = get_client()
-    query = ds.query(kind='Book', order=['title'])
+    query = ds.query(kind='Location', order=['name'])
     it = query.fetch(limit=limit, start_cursor=cursor)
     entities, more_results, cursor = it.next_page()
     entities = builtin_list(map(from_datastore, entities))
     return entities, cursor.decode('utf-8') if len(entities) == limit else None
 # [END list]
 
+def list_routes(route_ids, limit=10, cursor=None):
+    ds = get_client()
+    query = ds.query(kind='Route')
+    for route_id in route_ids:
+        query.filter()
+        print(route_id)
+    it = query.fetch(limit=limit, start_cursor=cursor)
+    entities, more_results, cursor = it.next_page()
+    entities = builtin_list(map(from_datastore, entities))
+    return entities, cursor.decode('utf-8') if len(entities) == limit else None
 
 def read(id):
     ds = get_client()
-    key = ds.key('Book', int(id))
+    key = ds.key('Location', int(id))
     results = ds.get(key)
     return from_datastore(results)
 
+def read_route(id):
+    ds = get_client()
+    key = ds.key('Route', int(id))
+    results = ds.get(key)
+    return from_datastore(results)
 
 # [START update]
 def update(data, id=None):
     ds = get_client()
     if id:
-        key = ds.key('Book', int(id))
+        key = ds.key('Location', int(id))
     else:
-        key = ds.key('Book')
+        data["route"] = []
+        key = ds.key('Location')
 
     entity = datastore.Entity(
         key=key,
@@ -86,7 +102,29 @@ create = update
 # [END update]
 
 
+def update_route(data, id=None):
+    ds = get_client()
+    if id:
+        key = ds.key('Route', int(id))
+    else:
+        key = ds.key('Route')
+
+    entity = datastore.Entity(
+        key=key,
+        exclude_from_indexes=['description'])
+
+    entity.update(data)
+    ds.put(entity)
+    return from_datastore(entity)
+
+create_route = update_route
+
 def delete(id):
     ds = get_client()
-    key = ds.key('Book', int(id))
+    key = ds.key('Location', int(id))
+    ds.delete(key)
+
+def delete_route(id):
+    ds = get_client()
+    key = ds.key('Route', int(id))
     ds.delete(key)
