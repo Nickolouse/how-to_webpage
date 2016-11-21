@@ -2,35 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6c6fc219-4c2c-42a6-a5b4-125a4f889b13" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/how-to/app.yaml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/how-to/bookshelf/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/how-to/bookshelf/crud.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/how-to/bookshelf/model_cloudsql.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/how-to/bookshelf/model_datastore.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/how-to/bookshelf/model_mongodb.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/how-to/bookshelf/templates/advanced.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/how-to/bookshelf/templates/base.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/how-to/bookshelf/templates/form.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/how-to/bookshelf/templates/intermediate.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/how-to/bookshelf/templates/introduction.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/how-to/bookshelf/templates/list.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/how-to/bookshelf/templates/routeForm.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/how-to/bookshelf/templates/simple.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/how-to/bookshelf/templates/view.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/how-to/bookshelf/templates/viewRoute.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/how-to/config.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/how-to/main.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/how-to/requirements-dev.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/how-to/requirements.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/how-to/tests/conftest.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/how-to/tests/test_crud.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/how-to/tox.ini" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/2-structured-data/bookshelf/crud.py" afterPath="$PROJECT_DIR$/2-structured-data/bookshelf/crud.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/2-structured-data/bookshelf/model_datastore.py" afterPath="$PROJECT_DIR$/2-structured-data/bookshelf/model_datastore.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/2-structured-data/bookshelf/templates/list.html" afterPath="$PROJECT_DIR$/2-structured-data/bookshelf/templates/list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/2-structured-data/bookshelf/templates/view.html" afterPath="$PROJECT_DIR$/2-structured-data/bookshelf/templates/view.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/2-structured-data/bookshelf/templates/viewRoute.html" afterPath="$PROJECT_DIR$/2-structured-data/bookshelf/templates/viewRoute.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/3-binary-data/bookshelf/model_datastore.py" afterPath="$PROJECT_DIR$/3-binary-data/bookshelf/model_datastore.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/how-to/bookshelf/templates/base.html" afterPath="$PROJECT_DIR$/how-to/bookshelf/templates/base.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/how-to/bookshelf/templates/intermediate.html" afterPath="$PROJECT_DIR$/how-to/bookshelf/templates/intermediate.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/how-to/bookshelf/templates/simple.html" afterPath="$PROJECT_DIR$/how-to/bookshelf/templates/simple.html" />
     </list>
     <ignored path="getting-started-python.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -53,7 +27,7 @@
       <file leaf-file-name="crud.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/how-to/bookshelf/crud.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
+            <state relative-caret-position="731">
               <caret line="44" column="12" selection-start-line="44" selection-start-column="12" selection-end-line="44" selection-end-column="12" />
               <folding />
             </state>
@@ -70,14 +44,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="simple.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="simple.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/how-to/bookshelf/templates/simple.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="263">
-              <caret line="231" column="33" selection-start-line="231" selection-start-column="33" selection-end-line="231" selection-end-column="33" />
+            <state relative-caret-position="1683">
+              <caret line="99" column="70" selection-start-line="99" selection-start-column="70" selection-end-line="99" selection-end-column="70" />
               <folding>
-                <element signature="e#3818#3822#0" expanded="true" />
-                <element signature="e#8985#8989#0" expanded="true" />
+                <element signature="e#4155#4159#0" expanded="true" />
+                <element signature="e#9322#9326#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -86,19 +60,22 @@
       <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/how-to/bookshelf/templates/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="397">
-              <caret line="42" column="65" selection-start-line="42" selection-start-column="23" selection-end-line="42" selection-end-column="65" />
+            <state relative-caret-position="629">
+              <caret line="37" column="13" selection-start-line="37" selection-start-column="13" selection-end-line="37" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="intermediate.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="intermediate.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/how-to/bookshelf/templates/intermediate.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="16" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
-              <folding />
+            <state relative-caret-position="-262">
+              <caret line="97" column="15" selection-start-line="97" selection-start-column="15" selection-end-line="97" selection-end-column="15" />
+              <folding>
+                <element signature="e#2548#2552#0" expanded="true" />
+                <element signature="e#5932#5936#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -147,19 +124,19 @@
         <option value="$PROJECT_DIR$/how-to/bookshelf/templates/list.html" />
         <option value="$PROJECT_DIR$/how-to/bookshelf/templates/introduction.html" />
         <option value="$PROJECT_DIR$/how-to/bookshelf/__init__.py" />
-        <option value="$PROJECT_DIR$/how-to/bookshelf/templates/intermediate.html" />
         <option value="$PROJECT_DIR$/how-to/bookshelf/templates/advanced.html" />
         <option value="$PROJECT_DIR$/how-to/bookshelf/crud.py" />
-        <option value="$PROJECT_DIR$/how-to/bookshelf/templates/base.html" />
         <option value="$PROJECT_DIR$/how-to/bookshelf/templates/simple.html" />
+        <option value="$PROJECT_DIR$/how-to/bookshelf/templates/base.html" />
+        <option value="$PROJECT_DIR$/how-to/bookshelf/templates/intermediate.html" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
+    <option name="x" value="1358" />
     <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="744" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -187,7 +164,6 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -262,6 +238,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -424,10 +401,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="1358" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16032211" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1140625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -790,14 +767,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/how-to/bookshelf/templates/intermediate.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="16" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/how-to/bookshelf/templates/advanced.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -816,27 +785,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/how-to/bookshelf/crud.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
+        <state relative-caret-position="731">
           <caret line="44" column="12" selection-start-line="44" selection-start-column="12" selection-end-line="44" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/how-to/bookshelf/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="42" column="65" selection-start-line="42" selection-start-column="23" selection-end-line="42" selection-end-column="65" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/how-to/bookshelf/templates/simple.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="231" column="33" selection-start-line="231" selection-start-column="33" selection-end-line="231" selection-end-column="33" />
+        <state relative-caret-position="1683">
+          <caret line="99" column="70" selection-start-line="99" selection-start-column="70" selection-end-line="99" selection-end-column="70" />
           <folding>
-            <element signature="e#3818#3822#0" expanded="true" />
-            <element signature="e#8985#8989#0" expanded="true" />
+            <element signature="e#4155#4159#0" expanded="true" />
+            <element signature="e#9322#9326#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/how-to/bookshelf/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="37" column="13" selection-start-line="37" selection-start-column="13" selection-end-line="37" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/how-to/bookshelf/templates/intermediate.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-262">
+          <caret line="97" column="15" selection-start-line="97" selection-start-column="15" selection-end-line="97" selection-end-column="15" />
+          <folding>
+            <element signature="e#2548#2552#0" expanded="true" />
+            <element signature="e#5932#5936#0" expanded="true" />
           </folding>
         </state>
       </provider>

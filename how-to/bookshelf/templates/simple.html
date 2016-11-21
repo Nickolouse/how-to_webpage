@@ -40,7 +40,9 @@ import android.graphics.Color;
         </li>
         <li>
             Now inside our activity class we need to add a few member variables. We will need one for our async task and
-            one for our text view.
+            one for our text view.<br><br>
+            Note that android studio may complain about InitTask not being found. Dont worry about this we will be
+            defining it a little later on.
             <code>
                 <pre>
 protected TextView main_text;
@@ -90,7 +92,9 @@ main_text.setTextColor(Color.BLACK);
             activity class that inherits from Async Task. Notice that there are three types here; a context, a void, and
             a string. These types are referring to the type that is being passed to Async Task when you call it; the
             second is the type passed to the onUpdate it is void here because we are not using this type; the last is
-            the type returned by the doInBackground method we will be returning a string in this example.
+            the type returned by the doInBackground method we will be returning a string in this example.<br><br>
+            Note that android studio may complain about doInBackground not being defined but don't worry about that
+            because we are about to define it.
             <code>
                 <pre>
 protected class InitTask extends AsyncTask&lt;Context, Void, String> {

@@ -13,16 +13,16 @@ Using the code that we made earlier we will add the new features to it.
 	<li>
 		The first thing we will do is add a cancel button to the activity layout. Make sure to set the 
 		id of the button to cancel_button. You can set it to something different but you will have to 
-		remember that id so that you can refference it later. 
+		remember that id so that you can reference it later.
 	</li>
 	<li>
-		Now create a class variable that we will use to refference the cancel button. This will go with
+		Now create a class variable that we will use to reference the cancel button. This will go with
 		the other variables declared at the top of the Activity class. 
 		<code>
 			<pre>
 protected Button main_button;
 			</pre>
-		<code>
+		</code>
 	</li>
 	<li>
 		In the onCreate method we will initialise the variable we just created
@@ -31,7 +31,7 @@ protected Button main_button;
 main_button = (Button) findViewById(R.id.cancel_button);
 main_button.setOnClickListener(new ButtonListener());
 			</pre>
-		<code>
+		</code>
 	</li>
 	<li>
 		Now we need to add another method to the Activity class. This will be our button listener to 
@@ -45,13 +45,13 @@ protected class ButtonListener implements View.OnClickListener {
 	}
 }
 			</pre>
-		<code>
+		</code>
 	</li>
 	<li>
 		We will now add the onCancel method to the Async Task sub class. In this method we are going 
 		to just set the text and change its color. In a real implementation you would have other 
 		calculations and method calls that take place here in order to perform the cancel. 
-		<code>
+		</code>
 			<pre>
 @Override
 protected void onCancelled() {
@@ -61,7 +61,7 @@ protected void onCancelled() {
 	main_text.setTextColor(Color.RED);
 }
 			</pre>
-		<code>
+		</code>
 	</li>
 	<li>
 		At this point we are done implementing the cancel feature and will now implement the 
@@ -77,9 +77,9 @@ protected void onCancelled() {
 		we will have to make several changes to its Async Task subclass.
 		<code>
 			<pre>
-protected class InitTask extends AsyncTask<Context, String, String> {
+protected class InitTask extends AsyncTask&lt;Context, String, String> {
 			</pre>
-		<code>
+		</code>
 	</li>
 	<li>
 		First we will add our new method to the AsyncTask subclass. This method is going to 
@@ -95,7 +95,7 @@ protected void onProgressUpdate(String... values) {
 	main_text.setText(values[0]);
 }
 			</pre>
-		<code>
+		</code>
 	</li>
 	<li>
 		Now we need to change our doInBackground method to utilize our new onProcessUpdate
@@ -132,10 +132,13 @@ while (i <= 50) {
 return "COMPLETE!";
 }
 			</pre>
-		<code>
+		</code>
 	</li>
 </ol>
-
+I hope this has helped you to better understand android Async Tasks and how they can be used to make your user interface more
+    informative and more responsive.
+Thank you for checkout out my tutorial. If you have questions, comments, concerns, or suggestions please email me at
+edwanich@oregonstate.edu.
 The final code should look something like this:
 <code class="java">
   <pre>
@@ -187,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * sub-class of the activity that inherits from AsyncTask
      */
-    protected class InitTask extends AsyncTask<Context, String, String> {
+    protected class InitTask extends AsyncTask&lt;Context, String, String> {
         /**
          * This method is called before any of the others
          */
@@ -262,11 +265,6 @@ public class MainActivity extends AppCompatActivity {
     </pre>
 </code>
 </div>
-
-<a href="/" class="btn btn-success btn-sm">
-  <i class="glyphicon glyphicon"></i>
-  Next
-</a>
 
 
 {% endblock %}
