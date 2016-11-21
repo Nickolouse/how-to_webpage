@@ -1,0 +1,63 @@
+{#
+# Copyright 2015 Google Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#}
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div>
+  <p>This guide assumes that the reader has experience programming in an object oriented language. It will also be
+    helpful to have some understanding of Android Studio and android development. To develop the demo apps we will be
+    using Android Studio. There will be a few demo apps that start out quite simple and then become more advanced.</p>
+  <p>Async tasks are a built in tool for Android development that many encounter but I think few actually understand how
+    to utilize. Async tasks are threads that are specifically for the UI. An advantage of doing more processor intensive
+    calculations is that the UI will be more responsive. They can be especially useful when working with databases for
+    forms and other large data interactions.</p>
+  <p>Async tasks should not be used for calculations taking more than a couple seconds. These specialized threads execute
+    in multiple stages to give defined order to the thread. These stages are:</p>
+  <ul>
+    <li>onPreExecute - This method is called before doInBackground. This is where initializations should be performed.</li>
+    <li>doInBackground - This method is where the calculations should be performed in your Async task.</li>
+    <li>onProgressUpdate - This method can be called from doInBackground to update data in the UI thread.</li>
+    <li>onPostExecute - This method is called last and is where connections should be closed and other cleanup steps.</li>
+    <li>onCancel - This method can be used if you would like to have something like a cancel button where the user can
+    cancel the activity they started. </li>
+  </ul>
+
+<code class="java">
+  <pre>
+  def list():
+    token = request.args.get('page_token', None)
+    if token:
+        token = token.encode('utf-8')
+
+    books, next_page_token = get_model().list(cursor=token)
+
+    return render_template(
+        "list.html",
+        locations=books,
+        next_page_token=next_page_token)
+    </pre>
+</code>
+</div>
+
+<a href="/books/add" class="btn btn-success btn-sm">
+  <i class="glyphicon glyphicon"></i>
+  Next
+</a>
+
+
+{% endblock %}

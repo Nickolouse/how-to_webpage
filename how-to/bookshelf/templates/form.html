@@ -1,0 +1,58 @@
+{#
+# Copyright 2015 Google Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#}
+
+{# [START form] #}
+{% extends "base.html" %}
+
+{% block content %}
+<h3>{{action}} location</h3>
+
+<form method="POST" enctype="multipart/form-data">
+  <div class="form-group">
+    <label for="name">Location name</label>
+    <input type="text" name="name" id="name" value="{{location.name}}" class="form-control"/>
+  </div>
+  <div class="form-group">
+    <label for="longitude">Longitude</label>
+    <input type="text" name="longitude" id="longitude" value="{{location.longitude}}" class="form-control"/>
+  </div>
+  <div class="form-group">
+    <label for="latitude">Latitude</label>
+    <input type="text" name="latitude" id="latitude" value="{{location.latitude}}" class="form-control"/>
+  </div>
+  <div class="form-group">
+    <label for="rating">Type</label><br>
+    <input type="radio" name="rating" id="bouldering" value="bouldering"> Bouldering </input><br>
+    <input type="radio" name="rating" id="sport" value="sport"> Sport </input><br>
+    <input type="radio" name="rating" id="trad" value="trad"> Trad </input><br>
+  </div>
+  <div class="form-group">
+    <label for="map">Link to map</label>
+    <input type="text" name="map" id="map" value="{{location.map}}" class="form-control"/>
+  </div>
+  <div class="form-group">
+    <label for="establishment">Date Established</label>
+    <input type="date" name="establishment" id="establishment" value="{{location.establishment}}" class="form-control"/>
+  </div>
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea name="description" id="description" class="form-control">{{location.description}}</textarea>
+  </div>
+  <button type="submit" class="btn btn-success">Save</button>
+</form>
+
+{% endblock %}
+{# [END form] #}

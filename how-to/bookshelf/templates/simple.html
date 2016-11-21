@@ -1,0 +1,301 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<h3>Simple Example</h3>
+<div>
+  <p>Demo app 1 is quite simple it does not take advantage of either the onProgressUpdate or onCancel. The task is
+    started with a black “Hello World!” text at the top and then when the task ends it changes the thex to be red and
+    read “I am done!”. The Async task is defined as a subclass of the activity. This is an important aspect of this
+    example. If the Async task is defined outside of the activity class it will not be able to access the variables of
+    the activity like the text view.
+    </p>
+    <p>
+        Feel free to follow along with the below steps to create this simple project. Or grab the project from github
+        using the link at the top of the page.
+    </p>
+    <ol>
+        <li>
+            Open android studio and create a new blank project. This project should have a single activity that loads a
+            layout with a single text view in it.
+        </li>
+        <li>
+            Set the ID of the text view in your layout. I am setting mine to "main_text".
+        </li>
+        <li>
+            Go back to the main activity. This will be the .java file that was initially opened. We are going to
+            put in all of our imports now.
+            <code>
+                <pre>
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.content.Context;
+import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.Button;
+import android.widget.TextView;
+import android.graphics.Color;
+                </pre>
+            </code>
+        </li>
+        <li>
+            Now inside our activity class we need to add a few member variables. We will need one for our async task and
+            one for our text view.
+            <code>
+                <pre>
+protected TextView main_text;
+protected InitTask our_async_task;
+                </pre>
+            </code>
+        </li>
+        <li>
+            In this activity we are going to add to the onCreate method a variable that
+            refferences the text view in our layout.
+            <code>
+                <pre>
+main_text = (TextView) findViewById(R.id.main_text);
+                </pre>
+            </code>
+        </li>
+        <li>
+            Now we will use this variable to set our text to something we will also set the color of the text here.
+            <code>
+                <pre>
+main_text.setText("Hello world!");
+                </pre>
+            </code>
+            <code>
+                <pre>
+main_text.setTextColor(Color.BLACK);
+                </pre>
+            </code>
+        </li>
+        <li>
+            At this point the onCreate method should look something like this:
+            <code>
+                <pre>
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        main_text = (TextView) findViewById(R.id.main_text);
+        main_text.setText("Hello world!");
+        main_text.setTextColor(Color.BLACK);
+    }
+            </pre>
+            </code>
+        </li>
+        <li>
+            Now its time for what we came here for. We are going to create our Async Task. Create a new class inside the
+            activity class that inherits from Async Task. Notice that there are three types here; a context, a void, and
+            a string. These types are referring to the type that is being passed to Async Task when you call it; the
+            second is the type passed to the onUpdate it is void here because we are not using this type; the last is
+            the type returned by the doInBackground method we will be returning a string in this example.
+            <code>
+                <pre>
+protected class InitTask extends AsyncTask&lt;Context, Void, String> {
+}
+                </pre>
+            </code>
+        </li>
+        <li>
+            Inside the new class we are going to create a few of the methods we talked about in the introduction. Right
+            now the only content in these is the super.onPreExecute() that calls the parent method. We will be adding to
+            these methods in the next few steps.
+            <code>
+                <pre>
+@Override
+protected void onPreExecute() {
+    super.onPreExecute();
+}
+
+@Override
+protected String doInBackground(Context... params) {
+
+}
+
+@Override
+protected void onPostExecute(String result) {
+
+}
+                </pre>
+            </code>
+        </li>
+        <li>
+            For this example we are going to leave the onPreExecute method like it is.
+            <code>
+                <pre>
+@Override
+protected void onPreExecute() {
+    super.onPreExecute();
+}
+
+                </pre>
+            </code>
+        </li>
+        <li>
+            Now we will look at the actual method where the calculations and work is done. The doInBackground method,
+            we are going to add a loop with some waits to represent real calculations. Then we will return a string
+            like we declared in the class declaration. This string will be passed to the onPostExecute
+            <code>
+                <pre>
+@Override
+protected String doInBackground(Context... params) {
+    for(int i = 0; i < 10; i++){
+        try {
+            Thread.sleep(300);
+        }
+        catch (Exception e) {
+            Log.i("async_tutorial", e.getMessage());
+        }
+        //This is a trivial calculation... and will not take a noticable amount of time
+        //but it servs as a place holder to show that the work is done here.
+    }
+return "I am done!";
+}
+                </pre>
+            </code>
+        </li>
+        <li>
+            Now we will look at the onPostExecute method. Here we are going to change the text in that same text field
+            and change the color to something else. We will be refferencing the same variable that we made earlier in
+            the activity class. We are able to do this because our Async Task class is a subclass of the activity.
+            <code>
+                <pre>
+@Override
+protected void onPostExecute(String result) {
+    super.onPostExecute(result);
+    main_text.setText(result);
+    main_text.setTextColor(Color.RED);
+}
+                </pre>
+            </code>
+        </li>
+        <li>
+            The last thing we need to do is an important one, we need to actually call our Async Task from our activity.
+            To do that add the following code to the end of your onCreate method.
+            <code>
+                <pre>
+our_async_task = new InitTask();
+our_async_task.execute(this);
+                </pre>
+            </code>
+            The final onCreate method should look something like this:
+            <code>
+                <pre>
+@Override
+public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+    main_text = (TextView) findViewById(R.id.main_text);
+    main_text.setText("Hello world!");
+    main_text.setTextColor(Color.BLACK);
+    our_async_task = new InitTask();
+    our_async_task.execute(this);
+}
+                </pre>
+            </code>
+        </li>
+        <li>
+            If you build and run this project you should see the text that is set in the activity class change to the
+            new text that you set in the Async Task. It will take about a second for the text to change.
+        </li>
+    </ol>
+    <p>
+        The full project is available on my github at https://github.com/Nickolouse/CS496-how-to<br>
+        The final main activity class should look something like this:
+    </p>
+
+    <code class="java">
+        <pre>
+package studentosu.howtoexample1;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.content.Context;
+import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.Button;
+import android.widget.TextView;
+import android.graphics.Color;
+
+/**
+ * The code here may is originally from an answer in stack overflow that is not my own. I am taking
+ * this as a base and modifying it to create my how to. There will likely be little left of the original
+ * codet hat I am basing it.
+ * http://stackoverflow.com/questions/6450275/android-how-to-work-with-asynctasks-progressdialog
+ * the post that I used was by: Sunil Kumar Sahoo
+ */
+
+public class MainActivity extends AppCompatActivity {
+
+    protected TextView main_text;
+    protected InitTask our_async_task;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        main_text = (TextView) findViewById(R.id.main_text);
+        main_text.setText("Hello world!");
+        main_text.setTextColor(Color.BLACK);
+        our_async_task = new InitTask();
+        our_async_task.execute(this);
+    }
+
+    /**
+     * sub-class of the activity that inherits from AsyncTask
+     */
+    protected class InitTask extends AsyncTask&lt;Context, Void, String> {
+        /**
+         * This method is called before any of the others
+         */
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            /**
+             * initialize variables and other actions that must happen first.
+             */
+        }
+
+        /**
+         * This is where the meat of your async task will take place in more complex examples
+         */
+        @Override
+        protected String doInBackground(Context... params) {
+            for(int i = 0; i < 10; i++){
+                try {
+                    Thread.sleep(300);
+                }
+                catch (Exception e) {
+                    Log.i("async_tutorial", e.getMessage());
+                }
+                //This is a trivial calculation... and will not take a noticable amount of time
+                //but it servs as a place holder to show that the work is done here.
+            }
+            return "I am done!";
+        }
+
+
+        /**
+         * This is the last thing that happens after doInBackground exits
+         */
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            main_text.setText(result);
+            main_text.setTextColor(Color.RED);
+        }
+    }
+}
+        </pre>
+    </code>
+</div>
+
+<a href="/AsyncTaskHowTo/intermediate" class="btn btn-success btn-sm">
+  <i class="glyphicon glyphicon"></i>
+  Next
+</a>
+
+
+{% endblock %}

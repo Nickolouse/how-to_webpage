@@ -1,0 +1,37 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<h3>Intermediate Example</h3>
+<div>
+  <p>Demo app 1 is quite simple it does not take advantage of either the onProgressUpdate or onCancel. The task is
+    started with a black “Hello World!” text at the top and then when the task ends it changes the thex to be red and
+    read “I am done!”. The Async task is defined as a subclass of the activity. This is an important aspect of this
+    example. If the Async task is defined outside of the activity class it will not be able to access the variables of
+    the activity like the text view.
+</p>
+
+<code class="java">
+  <pre>
+  def list():
+    token = request.args.get('page_token', None)
+    if token:
+        token = token.encode('utf-8')
+
+    books, next_page_token = get_model().list(cursor=token)
+
+    return render_template(
+        "list.html",
+        locations=books,
+        next_page_token=next_page_token)
+    </pre>
+</code>
+</div>
+
+<a href="/" class="btn btn-success btn-sm">
+  <i class="glyphicon glyphicon"></i>
+  Next
+</a>
+
+
+{% endblock %}
