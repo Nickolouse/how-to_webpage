@@ -65,9 +65,9 @@ def read(id):
 def update(data, id=None):
     ds = get_client()
     if id:
-        key = ds.key('Book', int(id))
+        key = ds.key('Location', int(id))
     else:
-        key = ds.key('Book')
+        key = ds.key('Location')
 
     entity = datastore.Entity(
         key=key,

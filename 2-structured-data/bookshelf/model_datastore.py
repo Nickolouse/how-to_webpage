@@ -47,6 +47,24 @@ def from_datastore(entity):
     return entity
 # [END from_datastore]
 
+#START API
+def list_API(limit=10, cursor=None):
+    ds = get_client()
+    query = ds.query(kind='Location', order=['name'])
+    it = query.fetch(start_cursor=cursor)
+    entities, more_results, cursor = it.next_page()
+    entities = builtin_list(map(from_datastore, entities))
+    return entities, cursor.decode('utf-8') if len(entities) == limit else None
+
+def list_routes_API(route_ids):
+    routes = []
+
+    for route_id in route_ids:
+        routes.append(read_route(route_id))
+
+    return routes
+#END API
+
 
 # [START list]
 def list(limit=10, cursor=None):
@@ -60,14 +78,14 @@ def list(limit=10, cursor=None):
 
 def list_routes(route_ids, limit=10, cursor=None):
     ds = get_client()
+    routes = []
     query = ds.query(kind='Route')
     for route_id in route_ids:
-        query.filter()
-        print(route_id)
+        routes.append(read_route(route_id))
     it = query.fetch(limit=limit, start_cursor=cursor)
     entities, more_results, cursor = it.next_page()
     entities = builtin_list(map(from_datastore, entities))
-    return entities, cursor.decode('utf-8') if len(entities) == limit else None
+    return routes, None
 
 def read(id):
     ds = get_client()
@@ -119,12 +137,22 @@ def update_route(data, id=None):
 
 create_route = update_route
 
+
 def delete(id):
     ds = get_client()
     key = ds.key('Location', int(id))
     ds.delete(key)
+    return None
 
-def delete_route(id):
+
+def delete_route(location_id, route_id):
     ds = get_client()
-    key = ds.key('Route', int(id))
+    location = read(location_id)
+    key = ds.key('Route', int(route_id))
+    route_ids = location["route"].split(",")
+    if str(route_id) in route_ids:
+        route_ids.remove(route_id)
+    location["route"] = ",".join(route_ids)
+    location = update(location, location_id)
     ds.delete(key)
+    return location
