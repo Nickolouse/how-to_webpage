@@ -4,26 +4,261 @@
 {% block content %}
 <h3>Intermediate Example</h3>
 <div>
-  <p>Demo app 1 is quite simple it does not take advantage of either the onProgressUpdate or onCancel. The task is
-    started with a black “Hello World!” text at the top and then when the task ends it changes the thex to be red and
-    read “I am done!”. The Async task is defined as a subclass of the activity. This is an important aspect of this
-    example. If the Async task is defined outside of the activity class it will not be able to access the variables of
-    the activity like the text view.
+  <p>This example is more advanced then the previous one. In this example we will be adding an onProcessUpdate 
+  method and a cancel button and onCancelled method. This example will be much more useful for actually 
+  creating an interface with a database. 
 </p>
+Using the code that we made earlier we will add the new features to it. 
+<ol>
+	<li>
+		The first thing we will do is add a cancel button to the activity layout. Make sure to set the 
+		id of the button to cancel_button. You can set it to something different but you will have to 
+		remember that id so that you can refference it later. 
+	</li>
+	<li>
+		Now create a class variable that we will use to refference the cancel button. This will go with
+		the other variables declared at the top of the Activity class. 
+		<code>
+			<pre>
+protected Button main_button;
+			</pre>
+		<code>
+	</li>
+	<li>
+		In the onCreate method we will initialise the variable we just created
+		<code>
+			<pre>
+main_button = (Button) findViewById(R.id.cancel_button);
+main_button.setOnClickListener(new ButtonListener());
+			</pre>
+		<code>
+	</li>
+	<li>
+		Now we need to add another method to the Activity class. This will be our button listener to 
+		detect when the button has been pressed. This method will cancel our async task.
+		<code>
+			<pre>
+protected class ButtonListener implements View.OnClickListener {
 
+	public void onClick(View v) {
+		our_async_task.cancel(true);
+	}
+}
+			</pre>
+		<code>
+	</li>
+	<li>
+		We will now add the onCancel method to the Async Task sub class. In this method we are going 
+		to just set the text and change its color. In a real implementation you would have other 
+		calculations and method calls that take place here in order to perform the cancel. 
+		<code>
+			<pre>
+@Override
+protected void onCancelled() {
+	super.onCancelled();
+	Log.i("makemachine", "onCancelled()");
+	main_text.setText("Cancelled!");
+	main_text.setTextColor(Color.RED);
+}
+			</pre>
+		<code>
+	</li>
+	<li>
+		At this point we are done implementing the cancel feature and will now implement the 
+		onProgressUpdate method. 
+	</li>
+	<li>
+		We will have to change the declaration of our subclass to have a string value for the 
+		onProcessUpdate instead of the void value it currently has.
+		
+	</li>
+	<li>
+		To implement this feature we wont have to change anything in the Activity class but 
+		we will have to make several changes to its Async Task subclass.
+		<code>
+			<pre>
+protected class InitTask extends AsyncTask<Context, String, String> {
+			</pre>
+		<code>
+	</li>
+	<li>
+		First we will add our new method to the AsyncTask subclass. This method is going to 
+		simply update the text field to a differt value that is passed in. In this example we are going to 
+		use the on update method to inform the user of what is going on. Like a loading 
+		bar it will give the user an idea of where they are in the process and why they are 
+		waiting.
+		<code>
+			<pre>
+@Override
+protected void onProgressUpdate(String... values) {
+	super.onProgressUpdate(values);
+	main_text.setText(values[0]);
+}
+			</pre>
+		<code>
+	</li>
+	<li>
+		Now we need to change our doInBackground method to utilize our new onProcessUpdate
+		method. It is easy to call this method, it is called like any other method. We will 
+		add some more fake calculations and two calls to on update. 
+		<code>
+			<pre>
+protected String doInBackground(Context... params) {
+publishProgress("Fetching data from server");
+//Now we are going to do some really important calculations to fetch the data. Perhaps
+int i = 0;
+while (i <= 50) {
+	try {
+		Thread.sleep(50);
+
+		i++;
+	}
+	catch (Exception e) {
+	}
+}
+//Now we will do some more super important calculations to process the data.
+publishProgress("Processing Data");
+i = 0;
+while (i <= 50) {
+	try {
+		Thread.sleep(50);
+
+		i++;
+	}
+	catch (Exception e) {
+	}
+
+}
+return "COMPLETE!";
+}
+			</pre>
+		<code>
+	</li>
+</ol>
+
+The final code should look something like this:
 <code class="java">
   <pre>
-  def list():
-    token = request.args.get('page_token', None)
-    if token:
-        token = token.encode('utf-8')
+package studentosu.howtoexample1;
 
-    books, next_page_token = get_model().list(cursor=token)
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.content.Context;
+import android.os.AsyncTask;
+import android.graphics.Color;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
-    return render_template(
-        "list.html",
-        locations=books,
-        next_page_token=next_page_token)
+/**
+ * The code here may is originally from an answer in stack overflow that is not my own. I am taking
+ * this as a base and modifying it to create my how to. There will likely be little left of the original
+ * codet hat I am basing it.
+ * http://stackoverflow.com/questions/6450275/android-how-to-work-with-asynctasks-progressdialog
+ * the post that I used was by: Sunil Kumar Sahoo
+ */
+
+public class MainActivity extends AppCompatActivity {
+
+    protected TextView main_text;
+    protected Button main_button;
+    protected InitTask our_async_task;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        main_text = (TextView) findViewById(R.id.text_field);
+        main_button = (Button) findViewById(R.id.cancel_button);
+        main_button.setOnClickListener(new ButtonListener());
+        our_async_task = new InitTask();
+        our_async_task.execute(this);
+
+    }
+
+    protected class ButtonListener implements View.OnClickListener {
+
+        public void onClick(View v) {
+            our_async_task.cancel(true);
+        }
+    }
+
+    /**
+     * sub-class of the activity that inherits from AsyncTask
+     */
+    protected class InitTask extends AsyncTask<Context, String, String> {
+        /**
+         * This method is called before any of the others
+         */
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        /**
+         * This is where the meat of your async task will take place in more complex examples
+         */
+        @Override
+        protected String doInBackground(Context... params) {
+            publishProgress("Fetching data from server");
+            //Now we are going to do some really important calculations to fetch the data. Perhaps
+            int i = 0;
+            while (i <= 50) {
+                try {
+                    Thread.sleep(50);
+
+                    i++;
+                }
+                catch (Exception e) {
+                }
+            }
+            //Now we will do some more super important calculations to process the data.
+            publishProgress("Processing Data");
+            i = 0;
+            while (i <= 50) {
+                try {
+                    Thread.sleep(50);
+
+                    i++;
+                }
+                catch (Exception e) {
+                }
+
+            }
+            return "COMPLETE!";
+        }
+
+        /**
+         * This method can be called from doInBackground to do updates to the UI
+         */
+        @Override
+        protected void onProgressUpdate(String... values) {
+            super.onProgressUpdate(values);
+            main_text.setText(values[0]);
+        }
+
+        /**
+         * This is the last thing that happens after doInBackground exits
+         */
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            main_text.setText(result);
+            main_text.setTextColor(Color.BLUE);
+            main_button.setVisibility(View.INVISIBLE);
+        }
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+            Log.i("makemachine", "onCancelled()");
+            main_text.setText("Cancelled!");
+            main_text.setTextColor(Color.RED);
+        }
+
+    }
+}
     </pre>
 </code>
 </div>
