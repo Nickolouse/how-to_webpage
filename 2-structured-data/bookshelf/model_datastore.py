@@ -63,6 +63,48 @@ def list_routes_API(route_ids):
         routes.append(read_route(route_id))
 
     return routes
+
+def create_user(data):
+    ds = get_client()
+    query = ds.query(kind="User")
+    it = query.fetch()
+    query.add_filter("username", "=", data["username"])
+    cursor = None
+    entities, more_results, cursor = it.next_page()
+    entities = builtin_list(map(from_datastore, entities))
+    if len(entities) == 0 or entities is None:
+        key = ds.key('User')
+        entity = datastore.Entity(key=key)
+        entity.update(data)
+        ds.put(entity)
+        return from_datastore(entity)
+    else:
+        return None
+
+def login(data):
+    ds = get_client()
+    query = ds.query(kind="User")
+    it = query.fetch()
+    query.add_filter("username", "=", data["username"])
+    query.add_filter("password", "=", data["password"])
+    cursor = None
+    entities, more_results, cursor = it.next_page()
+    entities = builtin_list(map(from_datastore, entities))
+    if len(entities) == 0 or entities is None:
+        return False
+    else:
+        return True
+
+def update_user(data, id):
+    ds = get_client()
+
+    key = ds.key('User', int(id))
+
+    entity = datastore.Entity(key=key)
+
+    entity.update(data)
+    ds.put(entity)
+    return from_datastore(entity)
 #END API
 
 
@@ -90,6 +132,24 @@ def list_routes(route_ids, limit=10, cursor=None):
 def read(id):
     ds = get_client()
     key = ds.key('Location', int(id))
+    results = ds.get(key)
+    return from_datastore(results)
+
+def read_user(username):
+    ds = get_client()
+    query = ds.query(kind='User')
+    query.add_filter("username", "=", username)
+    it = query.fetch()
+    cursor = None
+    entities, more_results, cursor = it.next_page()
+    entities = builtin_list(map(from_datastore, entities))
+    print(entities)
+    if len(entities) == 1:
+        id = entities[0]
+        id = id["id"]
+    else:
+        return None
+    key = ds.key('User', int(id))
     results = ds.get(key)
     return from_datastore(results)
 
@@ -127,9 +187,7 @@ def update_route(data, id=None):
     else:
         key = ds.key('Route')
 
-    entity = datastore.Entity(
-        key=key,
-        exclude_from_indexes=['description'])
+    entity = datastore.Entity(key=key)
 
     entity.update(data)
     ds.put(entity)

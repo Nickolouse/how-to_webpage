@@ -18,15 +18,52 @@ from flask import Blueprint, redirect, render_template, request, url_for, jsonif
 
 crud = Blueprint('crud', __name__)
 
+# Add a user
+@crud.route('/API/user', methods=['POST'])
+def api_add_user():
+    print("something")
+    new_user = request.get_json(force=True)
+    if not new_user:
+        print("No data")
+        abort(400)
+    elif 'username' not in new_user:
+        print("no username provided")
+        abort(400)
+    elif 'password' not in new_user:
+        print("no password provided")
+        abort(400)
+
+    # it is an add.
+    new_user["route"] = []
+    user = get_model().create_user(new_user)
+
+    if user is not None:
+        result = {"result": "true"}
+    else:
+        result = {"result": "false"}
+    return jsonify(result), 201
+
+
+@crud.route("/API/login", methods=['POST'])
+def api_login():
+    data = request.get_json(force=True)
+    user = get_model().login(data)
+    if user:
+        result = {"result": "true"}
+    else:
+        result = {"result": "false"}
+    return jsonify(result), 201
+
 
 @crud.route("/API/locations", methods=['GET'])
 def api_list_locations():
     locations, next_page_token = get_model().list(limit=None, cursor=None)
     return jsonify(locations)
 
-@crud.route("/API/<location_id>/routes", methods=['GET'])
-def api_list_routes(location_id):
-    location = get_model().read(location_id)
+
+@crud.route("/API/<username>/routes", methods=['GET'])
+def api_list_routes(username):
+    location = get_model().read_user(username)
     try:
         route_ids = location["route"].split(",")
     except KeyError:
@@ -37,6 +74,32 @@ def api_list_routes(location_id):
         routes = []
 
     return jsonify(routes)
+
+
+@crud.route("/API/<username>/routes", methods=['POST'])
+def api_add_route(username):
+    if not request.get_json(force=True):
+        print("No data")
+        abort(400)
+    elif 'name' not in request.json:
+        print("nope")
+        abort(400)
+
+    location = get_model().read_user(username)
+
+    data = request.get_json(force=True)
+    route = get_model().create_route(data)
+    if route is None:
+        print("TESTING:" + str(data))
+    try:
+        if location["route"] is None:
+            location["route"] = str(route["id"])
+        else:
+            location["route"] = str(location["route"]) + "," + str(route["id"])
+    except KeyError:
+        location["route"] = str(route["id"])
+    location = get_model().update_user(location, location["id"])
+    return jsonify(route), 201
 
 
 @crud.route('/API/addlocation', methods=['POST'])
@@ -55,28 +118,28 @@ def api_add_location():
     print(request.json['name'])
     return jsonify(new_location), 201
 
-@crud.route('/API/<location_id>/addroute', methods=['POST'])
-def api_add_route(location_id):
-    if not request.get_json(force=True):
-        print("No data")
-        abort(400)
-    elif 'name' not in request.json:
-        print("nope")
-        abort(400)
-
-    location = get_model().read(location_id)
-
-    data = request.get_json(force=True)
-    route = get_model().create_route(data)
-    if route is None:
-        print(data)
-    try:
-        location["route"] = str(location["route"]) + "," + str(route["id"])
-    except KeyError:
-        location["route"] = str(route["id"])
-    location = get_model().update(location, location_id)
-    return jsonify(route), 201
-    #return redirect(url_for('.view_route', route_id=route['id'], location_id=location['id']))
+#@crud.route('/API/<location_id>/addroute', methods=['POST'])
+#def api_add_route(location_id):
+#    if not request.get_json(force=True):
+#        print("No data")
+#        abort(400)
+#    elif 'name' not in request.json:
+#        print("nope")
+#        abort(400)
+#
+#    location = get_model().read(location_id)
+#
+#    data = request.get_json(force=True)
+#    route = get_model().create_route(data)
+#    if route is None:
+#        print(data)
+#    try:
+#        location["route"] = str(location["route"]) + "," + str(route["id"])
+#    except KeyError:
+#        location["route"] = str(route["id"])
+#    location = get_model().update(location, location_id)
+#    return jsonify(route), 201
+#    #return redirect(url_for('.view_route', route_id=route['id'], location_id=location['id']))
 
 @crud.route('/API/<location_id>', methods=['PUT'])
 def api_edit_location(location_id):
