@@ -170,14 +170,18 @@ def api_edit_route(location_id, route_id):
     return jsonify(route), 201
 
 
-@crud.route('/API/delete', methods=['DELETE'])
-def api_delete_location():
+@crud.route('/API/users', methods=['DELETE'])
+def api_delete_user():
     if not request.get_json(force=True):
         abort(400)
-
     data = request.get_json(force=True)
-    location = get_model().delete(data["id"])
-    return jsonify(None), 201
+    user = get_model().read_user(data["username"])
+    location = get_model().delete_user(user["id"])
+    if location is not None:
+        result = {"result": "true"}
+    else:
+        result = {"result": "false"}
+    return jsonify(result), 201
 
 @crud.route('/API/<location_id>/delete', methods=['DELETE'])
 def api_delete_route(location_id):

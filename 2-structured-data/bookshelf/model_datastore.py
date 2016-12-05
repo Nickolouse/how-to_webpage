@@ -202,6 +202,11 @@ def delete(id):
     ds.delete(key)
     return None
 
+def delete_user(id):
+    ds = get_client()
+    key = ds.key('User', int(id))
+    ds.delete(key)
+    return "true"
 
 def delete_route(location_id, route_id):
     ds = get_client()
@@ -211,6 +216,6 @@ def delete_route(location_id, route_id):
     if str(route_id) in route_ids:
         route_ids.remove(route_id)
     location["route"] = ",".join(route_ids)
-    location = update(location, location_id)
+    location = update_user(location, location_id)
     ds.delete(key)
     return location
